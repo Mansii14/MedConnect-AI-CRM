@@ -21,7 +21,7 @@ services:
       - key: MODEL_NAME
         value: gemma2-9b-it
       - key: GROQ_API_KEY
-        sync: true # User will be prompted to enter their Groq API Key
+        value: "" # Enter your Groq API Key in the Render dashboard after creation
 
   # Frontend Static Site (React Vite)
   - type: web
@@ -33,7 +33,4 @@ services:
     rootDir: frontend
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: medconnect-api
-          type: web
-          property: url
+        value: "" # Enter your backend service URL in the Render dashboard after creation
