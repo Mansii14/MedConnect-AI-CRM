@@ -1,8 +1,11 @@
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# On Vercel, serverless function environment is read-only except for /tmp
+default_db_url = "sqlite:////tmp/hcp_crm.db" if os.environ.get("VERCEL") else "sqlite:///./hcp_crm.db"
+
 class Settings(BaseSettings):
-    DATABASE_URL: str = "sqlite:///./hcp_crm.db"
+    DATABASE_URL: str = default_db_url
     GROQ_API_KEY: str = ""
     SECRET_KEY: str = "supersecret_ai_first_crm_key_for_development"
     MODEL_NAME: str = "gemma2-9b-it"
