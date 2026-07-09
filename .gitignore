@@ -1,0 +1,51 @@
+# Dependency directories
+node_modules/
+venv/
+env/
+ENV/
+
+# Python caching & build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.tox/
+.coverage
+.cache
+htmlcov/
+*.egg-info/
+.eggs/
+
+# Frontend build outputs
+dist/
+dist-ssr/
+build/
+
+# Databases
+*.db
+*.sqlite3
+
+# Secrets and environment configurations
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Exceptions to env files
+!.env.example
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
