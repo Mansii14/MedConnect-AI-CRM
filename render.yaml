@@ -24,10 +24,9 @@ services:
         sync: true # User will be prompted to enter their Groq API Key
 
   # Frontend Static Site (React Vite)
-  - type: web
+  - type: static
     name: medconnect-crm
     plan: free
-    env: static
     buildCommand: npm run build
     publishPath: dist
     rootDirectory: frontend
