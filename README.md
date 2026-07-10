@@ -1,5 +1,9 @@
 # AI-First CRM – HCP Interaction Module
 
+**Live Deployment URLs:**
+*   🚀 **Frontend Application**: [https://dist-brown-zeta-90.vercel.app](https://dist-brown-zeta-90.vercel.app)
+*   ⚙️ **Backend API**: [https://medconnect-api-kohl.vercel.app](https://medconnect-api-kohl.vercel.app)
+
 AI-First CRM is a production-quality full-stack CRM module designed for Medical Representatives (MRs) to log, manage, and analyze interactions with Healthcare Professionals (HCPs) like doctors. It offers two interaction logging modes: a traditional structured form and an **AI conversational chat interface** powered by **LangGraph** and the **Groq API** (`gemma2-9b-it`).
 
 ---
