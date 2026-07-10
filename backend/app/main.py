@@ -84,9 +84,19 @@ app = FastAPI(
 )
 
 # CORS configuration
+import os
+is_production = os.environ.get("VERCEL_ENV") == "production" or os.environ.get("RENDER") is not None
+origins = ["*"]
+if is_production:
+    origins = [
+        "https://frontend-mansii14s-projects.vercel.app",
+        "https://frontend-git-main-mansii14s-projects.vercel.app",
+        "https://medconnect-crm.onrender.com",
+    ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust in production
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
