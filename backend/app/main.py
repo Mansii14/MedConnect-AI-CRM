@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.config.settings import settings
 from app.database.connection import engine, Base
 from app.api.auth import router as auth_router
 from app.api.doctors import router as doctors_router
@@ -86,25 +87,39 @@ app = FastAPI(
 # CORS configuration
 import os
 is_production = os.environ.get("VERCEL_ENV") == "production" or os.environ.get("RENDER") is not None
-origins = ["*"]
-if is_production:
-    origins = [
-        "https://frontend-mansii14s-projects.vercel.app",
-        "https://frontend-git-main-mansii14s-projects.vercel.app",
-        "https://medconnect-crm.onrender.com",
-    ]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+if is_production:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origin_regex=r"https://.*\.vercel\.app|https://.*\.onrender\.com",
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+else:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+import traceback
+from fastapi import Request
+from fastapi.responses import JSONResponse
 
 # Include Routers with a prefix for API versioning
 app.include_router(auth_router, prefix="/api")
 app.include_router(doctors_router, prefix="/api")
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    traceback.print_exc()
+    return JSONResponse(
+        status_code=500,
+        content={"message": "Internal Server Error", "detail": str(exc)}
+    )
 app.include_router(interactions_router, prefix="/api")
 app.include_router(followups_router, prefix="/api")
 app.include_router(chat_router, prefix="/api")

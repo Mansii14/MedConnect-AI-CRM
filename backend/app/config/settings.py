@@ -2,7 +2,7 @@ import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # On Vercel, serverless function environment is read-only except for /tmp
-default_db_url = "sqlite:////tmp/hcp_crm.db" if os.environ.get("VERCEL") else "sqlite:///./hcp_crm.db"
+default_db_url = "sqlite:////tmp/hcp_crm.db" if (os.environ.get("VERCEL") or os.environ.get("VERCEL_ENV") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME")) else "sqlite:///./hcp_crm.db"
 
 class Settings(BaseSettings):
     DATABASE_URL: str = default_db_url
